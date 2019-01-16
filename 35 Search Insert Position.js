@@ -2,15 +2,23 @@
  * @param {number[]} nums
  * @param {number} target
  * @return {number}
+ * 二分法
  */
 var searchInsert = function(nums, target) {
-  let l = 0, r = nums.length - 1;
-  while (r - l > 1) {
-    let mid = Math.trunc((r - l) / 2) + l;
-    if (nums[mid] >= target) r = mid;
-    else l = mid;
+  let leftIndex = 0
+  let rightIndex = nums.length - 1
+
+  while (leftIndex <= rightIndex) {
+    let midIndex = Math.trunc((leftIndex + rightIndex) / 2)
+    if (target > nums[midIndex]) {
+      leftIndex = midIndex + 1
+    }
+    if (target < nums[midIndex]) {
+      rightIndex = midIndex - 1
+    }
+    if (target === nums[midIndex]) {
+      return midIndex
+    }
   }
-  if (nums[r] < target) return r + 1;
-  if (nums[l] < target) return l + 1;
-  return l;
+  return leftIndex
 };
